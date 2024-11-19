@@ -1,0 +1,18 @@
+- name: Install NGINX application
+  hosts: testservers
+  remote_user: root 
+
+  tasks:
+  - name: Install nginx on remote machines 
+    apt: pkg=nginx state=present upgrade=yes update_cache=yes
+  
+  - name: install mysql
+    apt: pkg=mariadb-server state=present 
+
+  - name: start nginx service 
+    service: name=nginx state=started enabled=yes 
+
+  - name: create a new user 
+    user: 
+      name: ansible 
+      password: pass123

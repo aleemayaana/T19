@@ -1,0 +1,65 @@
+- name: Install LAMP Stack 
+  hosts: testservers
+  remote_user: root 
+  
+  tasks:
+  - name: Run apt-update
+    apt: 
+      update-cache: yes
+
+  - name: Installing apache
+    apt: 
+      pkg: apache2 
+      state: present
+
+  - name: enable apache service 
+    service: 
+      name: apache2
+      enabled: yes
+      state: started
+  
+  - name: delete default welcome page 
+    file: 
+      path: /var/www/html/index.html
+      state: absent
+    notify:
+      - restart apache2 service
+
+  - name: installing mysql db community edition
+    apt:
+      name: mariadb-server
+      state: present
+  
+  - name: enable mysql service 
+    service:
+      name: mariadb
+      enabled: yes
+      state: started
+  
+  - name: install php
+    apt: 
+      name:
+      - php
+      - php-mysql
+      state: present
+    notify:
+      - restart mysql service   
+  
+  - name: copy php file
+    copy:
+      src: /home/charan/ansible_playbooks/index.php
+      dest: /var/www/html/index.php
+    notify:
+      - restart apache2 service 
+      - restart mysql service
+  
+  handlers:
+  - name: restart apache2 service 
+    service: 
+      name: apache2
+      state: restarted
+    
+  - name: restart mysql service 
+    service:
+      name: mariadb-server
+      state: restarted
