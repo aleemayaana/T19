@@ -1,0 +1,13 @@
+---
+- name: Create User with Encrypted Password
+  hosts: testservers
+  remote_user: root  
+  vars_files:
+    - pass.yaml    
+
+  tasks:
+    - name: Create user account
+      user:
+        name: user3
+        password: "{{ secret | password_hash('sha512') }}"  #Encryption
+        state: present

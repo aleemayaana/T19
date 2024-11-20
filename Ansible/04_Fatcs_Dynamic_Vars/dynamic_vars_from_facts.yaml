@@ -1,0 +1,13 @@
+- name: dynamic_vars_creation_from_facts
+  hosts: testservers
+  remote_user: root 
+  gather_facts: yes
+
+  tasks:
+  - name: Display gathered facts
+    debug:
+      var: ansible_facts
+
+  - name: show dynamic variable value on this screen
+    debug:
+      msg: "{{ ansible_facts.all_ipv4_addresses }}"

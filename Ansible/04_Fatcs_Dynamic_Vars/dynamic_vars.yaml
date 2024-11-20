@@ -1,0 +1,15 @@
+- name: creation of dynamic vars from module
+  hosts: testservers
+  remote_user: root 
+
+  tasks: 
+  - name: create a variable with hostname 
+    command: hostname
+    register: hostname
+  
+  - name: show dynamic variable value on this screen
+    debug:
+      msg: "{{ hostname }}"
+  
+  # - name: print the dynamic_vars into a text file on remote machines
+  #   shell: echo "The hostname of this machine is {{ hostname }}" > /home/charan/hostname.txt 

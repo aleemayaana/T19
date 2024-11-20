@@ -1,0 +1,2 @@
+Course: InfoSec
+Technology: AzureSentinel

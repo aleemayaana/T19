@@ -1,0 +1,10 @@
+- name: variables_example1
+  hosts: testservers
+  remote_user: root 
+  vars:
+    Course: DevOps
+    Technology: Ansible 
+
+  tasks:
+  - name: print the vars into a text file on remote machines
+    shell: echo "I have enrolled in {{ Course }} and i am currently learning {{ Technology }}" > /home/charan/variables_example1.txt

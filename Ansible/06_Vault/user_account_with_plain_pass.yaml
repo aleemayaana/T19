@@ -1,0 +1,10 @@
+- name: create a new user with plain password
+  hosts: testservers
+  remote_user: root 
+
+  tasks: 
+  - name: create a new user account 
+    user:
+      name: user2
+      password: xyz@123456
+      state: present
