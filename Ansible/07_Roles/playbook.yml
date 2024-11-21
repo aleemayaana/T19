@@ -1,0 +1,8 @@
+---
+- name: Exectuing roles
+  hosts: testservers
+  remote_user: root
+
+  roles:  
+  - install_apps
+  - copy_files
