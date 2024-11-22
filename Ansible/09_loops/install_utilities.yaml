@@ -1,0 +1,17 @@
+- name: Install essential utilities
+  hosts: testservers
+  remote_user: root 
+  
+  vars: 
+    utilities_to_install:
+      - vim 
+      - curl 
+      - wget
+      - tree
+    
+  tasks: 
+    - name: Install utilities using loop
+      apt: 
+        name: "{{ item }}"
+        state: present
+      with_items: "{{ utilities_to_install }}" 

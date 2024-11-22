@@ -1,0 +1,24 @@
+- name: Create multiple users
+  hosts: testservers
+  remote_user: root
+
+  vars:
+    users_to_create:
+      - username: alice
+        uid: 10010
+        shell: /bin/bash
+      - username: bob
+        uid: 10011
+        shell: /bin/bash
+      - username: charlie
+        uid: 10012
+        shell: /bin/bash
+
+  tasks:
+    - name: Add users to the system
+      user:
+        name: "{{ item.username }}"
+        uid: "{{ item.uid }}"
+        shell: "{{ item.shell }}"
+        state: present
+      with_items: "{{ users_to_create }}"
